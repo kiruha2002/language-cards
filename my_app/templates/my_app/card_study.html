@@ -1,0 +1,72 @@
+{% extends 'my_app/base.html' %}
+
+{% block title %}
+Study {{ lesson.name }}
+{% endblock %}
+
+{% block content %}
+<h1>Study: {{ lesson.name }}</h1>
+{% if cards %}
+<div class="card-container" id="card-container">
+    <div class="card" id="card">
+        <div class="card-front">
+            <h5 class="card-title" id="card-word"></h5>
+            <img src="" class="card-img-top" id="card-image" style="display: none;" alt="">
+        </div>
+        <div class="card-back">
+            <h5 class="card-translation" id="card-translation"></h5>
+        </div>
+    </div>
+</div>
+<div class="text-center">
+    <button class="btn btn-primary" onclick="flipCard()">Flip Card</button>
+    <button class="btn btn-secondary" id="next-card" onclick="nextCard()">Next Card</button>
+</div>
+{% else %}
+<p>No cards in this lesson.</p>
+{% endif %}
+
+<script>
+    const cards = [
+        {% for card in cards %}
+        {
+            word: "{{ card.word }}",
+            translation: "{{ card.translation }}",
+            image: "{% if card.image %}{{ card.image.url }}{% else %}{% endif %}"
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+    let currentCard = -1;
+
+    function flipCard() {
+        document.getElementById('card').classList.toggle('flipped');
+    }
+
+    function nextCard() {
+        // Переключаемся на следующую карточку или возвращаемся к первой
+        currentCard = (currentCard + 1) % cards.length;
+        const card = cards[currentCard];
+        
+        // Обновляем слово
+        document.getElementById('card-word').innerText = card.word;
+        // Обновляем перевод
+        document.getElementById('card-translation').innerText = card.translation;
+        // Обновляем изображение
+        const img = document.getElementById('card-image');
+        if (card.image) {
+            img.src = card.image;
+            img.alt = card.word;
+            img.style.display = 'block';
+        } else {
+            img.src = '';
+            img.style.display = 'none';
+        }
+        // Сбрасываем переворот, чтобы показать лицевую сторону
+        document.getElementById('card').classList.remove('flipped');
+    }
+
+    // Показываем первую карточку при загрузке
+    if (cards.length > 0) {
+        nextCard();
+    }
+</script>

@@ -1,0 +1,15 @@
+{% extends 'my_app/base.html' %} {% block title %}Lessons{% endblock %} {% block content %}
+<h1>Lessons</h1>
+<a href="{% url 'card_add' %}" class="btn btn-primary mb-3">Add Card</a>
+{% if lessons %}
+<ul class="list-group">
+  {% for lesson in lessons %}
+  <li class="list-group-item">
+    <a href="{% url 'card_list_lesson' lesson.id %}">{{ lesson.name }}</a>
+    <a href="{% url 'card_study' lesson.id %}" class="btn btn-sm btn-info">Study</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No lessons yet.</p>
+{% endif %} {% endblock %}

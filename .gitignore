@@ -1,0 +1,30 @@
+# Виртуальное окружение
+env_name/
+venv/
+*.venv/
+
+# Файлы Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.pytest_cache/
+
+# База данных
+db.sqlite3
+
+# Медиа и статические файлы
+media/
+static/
+
+# Логи и временные файлы
+*.log
+*.pot
+*.DS_Store
+.idea/
+*.code-workspace
+
+# Локальные настройки
+.vscode/

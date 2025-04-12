@@ -1,0 +1,29 @@
+{% extends 'my_app/base.html' %} {% block title %}Card List{% endblock %} {% block content %}
+<h1>Card List</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Word</th>
+      <th>Translation</th>
+      <th>Image</th>
+      <th>Lesson</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for card in cards %}
+    <tr>
+      <td>{{ card.word }}</td>
+      <td>{{ card.translation }}</td>
+      <td>
+        {% if card.image %}
+        <img src="{{ card.image.url }}" alt="{{ card.word }}" style="max-width: 100px" />
+        {% else %} No image {% endif %}
+      </td>
+      <td>{{ card.lesson.name }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% if not cards %}
+<p>No cards yet.</p>
+{% endif %} {% endblock %}
