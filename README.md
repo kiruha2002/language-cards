@@ -11,5 +11,5 @@ A Django web application for learning words using flashcards, inspired by Anki. 
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/language-cards.git
+   git clone https://github.com/kiruha2002/language-cards.git
    cd language-cards
